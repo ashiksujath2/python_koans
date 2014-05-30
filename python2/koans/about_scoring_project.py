@@ -33,9 +33,25 @@ from runner.koan import *
 #
 # Your goal is to write the score method.
 
+
 def score(dice):
-    # You need to write this method
-    pass
+    s = 0
+    if not dice:
+        return s
+    count = lambda a: dice.count(a)
+
+    def extra(a):
+        if a not in [1, 5]:
+            return 0
+        c = count(a)
+        c = c if c < 3 else c-3
+        return c*100 if a == 1 else c*50
+
+    for i in set(dice):
+        if count(i) >= 3:
+            s += 1000 if i == 1 else i*100
+        s += extra(i)
+    return s
 
 
 class AboutScoringProject(Koan):
